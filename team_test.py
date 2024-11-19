@@ -36,7 +36,8 @@ def create_armor():
         "Wall of Will",
         "Wall of Walls",
         "Obamacare",
-        "Thick Goo"]
+        "Thick Goo",
+    ]
     name = armors[random.randint(0, len(armors) - 1)]
     power = random.randint(23, 700000)
     return Armor(name, power)
@@ -54,7 +55,8 @@ def create_weapon():
         "Blinding Lights",
         "Ferociousness",
         "Speed of Hermes",
-        "Lightning Bolts"]
+        "Lightning Bolts",
+    ]
     name = weapons[random.randint(0, len(weapons) - 1)]
     power = random.randint(27, 700000)
     return Weapon(name, power)
@@ -75,7 +77,8 @@ def create_ability():
         "The Kraken",
         "The Fire of A Million Suns",
         "Team Spirit",
-        "Canada"]
+        "Canada",
+    ]
     name = abilities[random.randint(0, len(abilities) - 1)]
     power = random.randint(45, 700000)
     return Ability(name, power)
@@ -105,7 +108,8 @@ def build_hero(num_of_weapons=0, num_of_armor=0, num_of_abilities=0):
         "San Luis Obispo",
         "Ted Kennedy",
         "San Francisco",
-        "Bananas"]
+        "Bananas",
+    ]
 
     weapons = []
     armors = []
@@ -156,7 +160,8 @@ def create_hero(max_strength=100, weapons=False, armors=False, health=False):
         "San Luis Obispo",
         "Ted Kennedy",
         "San Francisco",
-        "Bananas"]
+        "Bananas",
+    ]
     name = heroes[random.randint(0, len(heroes) - 1)]
     if health:
         power = health
@@ -197,7 +202,8 @@ def create_team(heroes=[]):
         "Winky Bears",
         "Steelsmiths",
         "Boilermakers",
-        "Nincompoops"]
+        "Nincompoops",
+    ]
 
     name = teams[random.randint(0, len(teams) - 1)]
     team = Team(name)
@@ -221,7 +227,7 @@ def create_set():
     for _ in range(0, ability_ct):
         abilities.append(create_ability())
 
-    hero_set = {'weapons': abilities, 'armors': armors}
+    hero_set = {"weapons": abilities, "armors": armors}
     return hero_set
 
 
@@ -229,7 +235,7 @@ def test_armor():
     armor = Armor("The Ring", 200)
     for _ in range(0, 500):
         defense = armor.block()
-        assert (defense <= 200 and defense >= 0)
+        assert defense <= 200 and defense >= 0
 
 
 def test_hero_default_health():
@@ -275,16 +281,18 @@ def test_hero_defense_mean_value():
     print("Mean -- calculated: {} | actual: {}".format(calculated_mean, actual_mean))
     print(
         "Acceptable deviation from mean: {} | Current deviation from mean: {}".format(
-            accepted_window, abs(
-                calculated_mean - actual_mean)))
+            accepted_window, abs(calculated_mean - actual_mean)
+        )
+    )
     print(
         "Acceptable Min: {} | Acceptable Max: {}".format(
-            actual_mean -
-            accepted_window,
-            actual_mean +
-            accepted_window))
-    assert actual_mean <= calculated_mean + \
-        accepted_window and actual_mean >= calculated_mean - accepted_window
+            actual_mean - accepted_window, actual_mean + accepted_window
+        )
+    )
+    assert (
+        actual_mean <= calculated_mean + accepted_window
+        and actual_mean >= calculated_mean - accepted_window
+    )
 
 
 def test_hero_defense_standard_deviation():
