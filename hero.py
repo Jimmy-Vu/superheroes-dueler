@@ -10,6 +10,8 @@ class Hero:
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
 
     def add_ability(self, ability):
         self.abilities.append(ability)
@@ -35,34 +37,46 @@ class Hero:
     def take_damage(self, damage):
         damage_taken = 0
         damage_blocked = self.defend()
-        if (damage_blocked >= damage):
+        if damage_blocked >= damage:
             print("Tis but a scratch")
         else:
             damage_taken = damage - damage_blocked
             self.current_health = self.current_health - damage_taken
 
     def is_alive(self):
-        if (self.current_health <= 0):
+        if self.current_health <= 0:
             return False
         else:
             return True
 
     def fight(self, opponent):
-        if (len(self.abilities) == 0 or len(opponent.abilities) == 0):
+        if len(self.abilities) == 0 or len(opponent.abilities) == 0:
             print("Draw")
         else:
             fight_is_active = True
-            while (fight_is_active):
+            while fight_is_active:
                 opponent.take_damage(self.attack())
-                if (opponent.is_alive() == False):
+                if opponent.is_alive() == False:
                     print(f"{self.name} won!")
+                    self.add_kill(1)
+                    opponent.add_death(1)
                     fight_is_active = False
                     return
                 self.take_damage(opponent.attack())
-                if (self.is_alive() == False):
+                if self.is_alive() == False:
                     print(f"{opponent.name} won!")
+                    opponent.add_kill(1)
+                    self.add_death(1)
                     fight_is_active = False
                     return
+
+    def add_kill(self, num_kills):
+        """Update self.kills by num_kills amount"""
+        self.kills += num_kills
+
+    def add_death(self, num_deaths):
+        """Update deaths with num_deaths"""
+        self.deaths += num_deaths
 
 
 if __name__ == "__main__":
